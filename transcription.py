@@ -151,9 +151,9 @@ def transcription(str):
     prelast = prelast.replace("ч","ч'")
     prelast = prelast.replace('щ',"щ'") 
 
-    for i in range(len(prelast)-1):
+    for i in range(len(prelast)):
         if prelast[i] == 'й':
-            if prelast[i+1].isupper():
+            if i+1 < len(prelast) and prelast[i+1].isupper():
                 prelast = prelast[:i] + 'j' + prelast[i+1:]
             else:
                 prelast = prelast[:i] + 'i' + prelast[i+1:]
