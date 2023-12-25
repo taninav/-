@@ -32,8 +32,14 @@ def transcription(str):
     prephase = str
     prephase = prephase.replace("ьИ","ьjИ")
     prephase = prephase.replace("ьи","ьiи")
-    prephase = prephase.replace('Ъ','')
-    prephase = prephase.replace('ь',"'")
+    prephase = prephase.replace('ъ',' ')
+    for i in range(0, len(prephase)-1):
+        if prephase[i+1] == 'ь':
+            if not prephase[i] in vel_consonants:
+                prephase = prephase[:i+1] + "'" + prephase[i+2:]
+            else:
+                prephase = prephase[:i+1] + " " + prephase[i+2:]
+
 
     slovo = list(prephase)
     p = [i for i in range(len(slovo)) if slovo[i].isupper()]
@@ -97,6 +103,8 @@ def transcription(str):
                             predud[glasn_id[0]] = specials_lower_after_cons[predud[glasn_id[0]]]
                         else:
                             predud[glasn_id[0]] = "'" + specials_lower_after_cons[predud[glasn_id[0]]]
+                    else:
+                        predud[glasn_id[0]] = specials_lower[predud[glasn_id[0]]]                        
         else: 
             glasn_id.reverse()
 
@@ -113,6 +121,8 @@ def transcription(str):
                             predud[glasn_id[0]] = specials_lower_after_cons[predud[glasn_id[0]]]
                         else:
                             predud[glasn_id[0]] = "'" + specials_lower_after_cons[predud[glasn_id[0]]]
+                    else:
+                        predud[glasn_id[0]] = specials_lower[predud[glasn_id[0]]]                        
                 for t in range(1, len(glasn_id)-1):
                     if predud[glasn_id[t]] in vowels:
                         predud[glasn_id[t]] = vtoraya_stepen_redukcii[predud[glasn_id[t]]]
@@ -133,6 +143,8 @@ def transcription(str):
                             predud[glasn_id[0]] = specials_lower_after_cons[predud[glasn_id[0]]]
                         else:
                             predud[glasn_id[0]] = "'" + specials_lower_after_cons[predud[glasn_id[0]]]
+                    else:
+                        predud[glasn_id[0]] = specials_lower[predud[glasn_id[0]]]
                 for t in range(1, len(glasn_id)):
                     if predud[glasn_id[t]] in vowels:
                         predud[glasn_id[t]] = vtoraya_stepen_redukcii[predud[glasn_id[t]]]
@@ -150,7 +162,7 @@ def transcription(str):
 
     prelast = prelast.replace("ч","ч'")
     prelast = prelast.replace('щ',"щ'") 
-
+    prelast = prelast.replace(' ',"") 
     for i in range(len(prelast)):
         if prelast[i] == 'й':
             if i+1 < len(prelast) and prelast[i+1].isupper():
@@ -174,9 +186,6 @@ def transcription(str):
 
 
     return itog
-
-
-        
 
     
 
